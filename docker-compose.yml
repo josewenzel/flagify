@@ -2,10 +2,13 @@ version: '1'
 
 services:
   flagify-db:
-    image: mongo
-    ports:
-      - '27017:27017'
+    image: postgres
+    restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGODB_NAME}
+      - POSTGRES_USER=flagify
+      - POSTGRES_PASSWORD=flagify
+      - POSTGRES_DB=flagify
+    ports:
+      - '5438:5432'
+    volumes:
+      - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
