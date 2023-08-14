@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS flags (
     canary_setting INT DEFAULT 100 NOT NULL CHECK (canary_setting BETWEEN 1 AND 100),
     project_id VARCHAR(255) NOT NULL,
     PRIMARY KEY (flag_id)
-    );
+);
 
 -- add relationship between projects table and flags table
 ALTER TABLE flags
