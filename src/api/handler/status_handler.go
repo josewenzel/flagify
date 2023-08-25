@@ -12,7 +12,7 @@ type StatusResponse struct {
 }
 
 func HandleGetStatus(responseWriter http.ResponseWriter, request *http.Request) {
-	if authorizeRequest := security.AuthorizeRequest(request); !authorizeRequest.Valid {
+	if isAuthorized := security.AuthorizeRequest(request); !isAuthorized.Valid {
 		StatusRespondWith(http.StatusUnauthorized, responseWriter)
 		return
 	}
@@ -24,5 +24,5 @@ func StatusRespondWith(statusCode int, responseWriter http.ResponseWriter) {
 	responseWriter.WriteHeader(statusCode)
 	response := &StatusResponse{Status: http.StatusText(statusCode)}
 	jsonResponse, _ := json.Marshal(response)
-	fmt.Fprintf(responseWriter, string(jsonResponse))
+	_, _ = fmt.Fprintf(responseWriter, string(jsonResponse))
 }

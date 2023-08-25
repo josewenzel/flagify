@@ -3,6 +3,7 @@ package security
 import (
 	"errors"
 	"net/http"
+	"os"
 )
 
 type AuthorizationResponse struct {
@@ -11,7 +12,8 @@ type AuthorizationResponse struct {
 }
 
 func AuthorizeRequest(r *http.Request) *AuthorizationResponse {
-	if authorizationToken := r.Header.Get("Authorization"); authorizationToken == "valid-token" {
+	authorizationToken := os.Getenv("AUTHORIZATION_TOKEN")
+	if authorizationTokenInRequest := r.Header.Get("Authorization"); authorizationToken == authorizationTokenInRequest {
 		return &AuthorizationResponse{
 			Valid:   true,
 			Message: nil,
