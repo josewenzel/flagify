@@ -1,6 +1,13 @@
 version: '1'
 
 services:
+  flagify-app:
+    build: .
+    ports:
+      - "8123:8123"
+    env_file: .env
+    depends_on:
+      - flagify-db
   flagify-db:
     image: postgres
     restart: always
