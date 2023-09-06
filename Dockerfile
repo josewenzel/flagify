@@ -7,7 +7,7 @@ RUN go mod download
 
 COPY . ./
 
-RUN go build -v -o /flagify-app
+RUN go build -C src -o /flagify-app
 
 EXPOSE 8123
 
